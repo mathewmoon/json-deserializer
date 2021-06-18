@@ -12,8 +12,8 @@ setup(
     license='Apache 2.0',
     long_description=io.open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
-    packages=['auroraPrettyParser'],
-    package_dir={'json_deserializer': 'src/json_deserializer'},
+    packages=['json-deserializer'],
+    package_dir={'json-deserializer': 'src/json_deserializer'},
     install_requires=[],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
