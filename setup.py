@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='json-deserializer',
-    version='0.0.1',
+    version='0.0.3',
     description='Attempts to correctly deserialize objects that json decoder cannot.',
     author='Mathew Moon',
     author_email='mmoon@quinovas.com',
