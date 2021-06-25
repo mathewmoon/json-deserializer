@@ -7,27 +7,38 @@ from typing import (
 )
 
 
-def deserialize(data: Any) -> Any:
+def deserialize(data: Any, recursive=False) -> Any:
     """
     For objects that are `almost` a duck, but not quite
     This keeps json decoder from blowing up
     """
+    res = None
     if isinstance(data, Mapping) and not isinstance(data, dict):
-        data = dict(data)
-        res = deserialize(data)
+        if recursive:
+            res = deserialize(dict(data), recursive=recursive)
+        else:
+            res = dict(data)
     elif isinstance(data, Sequence) and not isinstance(data, str):
-        res = []
-        for x in data:
-            res.append(deserialize(x))
+        if recursive:
+            res = []
+            for x in data:
+                res.append(deserialize(x, recursive=recursive))
+        else:
+            res = list(data)
     elif isinstance(data, dict):
-        res = {}
-        for k, v in data.items():
-            res[k] = deserialize(v)
+        if recursive:
+            res = {}
+            for k, v in data.items():
+                res[k] = deserialize(v, recursive=recursive)
+        else:
+            res = data
     elif isinstance(data, Callable):
         res = str(data)
     elif isinstance(data, Decimal):
         res = float(data)
-    else:
-        res = data
 
     return res
+
+
+def deserialize_recursive(data: Any) -> Any:
+    return deserialize(data, reccursive=True)
