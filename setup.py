@@ -4,11 +4,11 @@ from setuptools import setup
 
 setup(
     name='json-deserializer',
-    version='0.0.3',
+    version='0.0.4',
     description='Attempts to correctly deserialize objects that json decoder cannot.',
     author='Mathew Moon',
-    author_email='mmoon@quinovas.com',
-    url='https://github.com/QuiNovas/json-deserializer',
+    author_email='me@mathewmoon.net',
+    url='https://github.com/mathewmoon/json-deserializer',
     license='Apache 2.0',
     long_description=io.open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
