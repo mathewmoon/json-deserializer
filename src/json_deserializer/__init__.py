@@ -5,6 +5,12 @@ from typing import (
     Any,
     Callable
 )
+from json import (
+    loads,
+    dumps as json_dumps,
+    load,
+    dump as json_dump
+)
 
 
 class Deserializer:
@@ -34,7 +40,10 @@ class Deserializer:
         recursive = recursive if recursive is not None else cls.recursive
         default = default if default is not None else cls.default
 
-        if isinstance(data, Mapping) and not isinstance(data, dict):
+        if hasattr(data, "_asdict"):
+            res = data._asdict()
+
+        elif isinstance(data, Mapping) and not isinstance(data, dict):
             if recursive:
                 res = cls.deserialize(dict(data), recursive=recursive)
             else:
@@ -94,3 +103,11 @@ def deserialize(
         default=default,
         recursive=recursive
     )
+
+
+def dumps(*args, **kwargs):
+    return json_dumps(*args, default=deserialize, **kwargs)
+
+
+def dump(*args, **kwargs):
+    return json_dump(*args, default=deserialize, **kwargs)
